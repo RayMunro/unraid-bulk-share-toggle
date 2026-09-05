@@ -1,0 +1,131 @@
+Menu="Shares:8"
+Title="Bulk Share Toggle"
+Tag="check-square-o"
+Cond="_var($var,'fsState')!='Stopped' && _var($var,'shareUser')=='e' && _var($var,'shareSMBEnabled')!='no'"
+---
+<?PHP
+/*
+ * Bulk Share Toggle
+ *
+ * Lets you tick multiple user shares and flip their SMB Export setting
+ * (Yes / Yes-Hidden / No) all at once, instead of one at a time on the
+ * per-share Settings tab.
+ *
+ * This reuses Unraid's own /update.htm "changeShareSecurity" handler -
+ * the same POST that the stock "Read/Write settings to..." clone feature
+ * on the SMB Security Settings tab uses - so share configs are written
+ * and Samba is reloaded exactly the way Unraid already does it. This
+ * page does not touch any config file directly.
+ */
+
+$sec = $sec ?? (parse_ini_file('state/sec.ini', true) ?: []);
+$shares = $shares ?? (parse_ini_file('state/shares.ini', true) ?: []);
+
+uksort($shares, 'strnatcasecmp');
+
+$exportLabels = [
+  '-'   => _('No'),
+  'e'   => _('Yes'),
+  'eh'  => _('Yes (hidden)'),
+  'et'  => _('Yes/Time Machine'),
+  'eth' => _('Yes/Time Machine (hidden)'),
+];
+?>
+<style>
+#bst-table td.bst-check, #bst-table th.bst-check { width: 24px; text-align: center; }
+#bst-progress { margin-left: 12px; font-style: italic; }
+</style>
+
+<p><?= _('Select one or more shares below, then apply an SMB export change to all of them at once.') ?></p>
+
+<div class="TableContainer">
+<table class="unraid" id="bst-table">
+<thead>
+<tr>
+<td class="bst-check"><input type="checkbox" id="bst-check-all" title="<?= _('Select all') ?>"></td>
+<td><?= _('Name') ?></td>
+<td><?= _('Comment') ?></td>
+<td><?= _('SMB Export') ?></td>
+</tr>
+</thead>
+<tbody>
+<?php if (!$shares): ?>
+<tr><td class="empty" colspan="4"><?= _('There are no exportable user shares') ?></td></tr>
+<?php else: foreach ($shares as $sname => $share):
+  $export   = $sec[$sname]['export'] ?? '-';
+  $security = $sec[$sname]['security'] ?? 'public';
+  $label    = $exportLabels[$export] ?? $export;
+?>
+<tr>
+<td class="bst-check"><input type="checkbox" class="bst-row" value="<?= htmlspecialchars($sname) ?>" data-security="<?= htmlspecialchars($security) ?>"></td>
+<td><?= htmlspecialchars($sname) ?></td>
+<td><?= htmlspecialchars($share['comment'] ?? '') ?></td>
+<td class="bst-status"><?= $label ?></td>
+</tr>
+<?php endforeach; endif; ?>
+</tbody>
+</table>
+</div>
+
+<div class="buttons-spaced" style="margin-top:1em">
+<input type="button" id="bst-btn-yes" value="<?= _('Share (SMB)') ?>" onclick="bstApply('e', false)">
+<input type="button" id="bst-btn-hidden" value="<?= _('Share Hidden') ?>" onclick="bstApply('eh', false)">
+<input type="button" id="bst-btn-no" value="<?= _('Unshare (SMB)') ?>" onclick="bstApply('-', true)">
+<span id="bst-progress"></span>
+</div>
+
+<script>
+(function() {
+  var exportLabels = <?= json_encode($exportLabels) ?>;
+
+  $('#bst-check-all').on('change', function() {
+    $('.bst-row').prop('checked', this.checked);
+  });
+
+  window.bstApply = function(exportValue, confirmFirst) {
+    var rows = $('.bst-row:checked');
+    if (!rows.length) {
+      alert('<?= _('Select at least one share first') ?>');
+      return;
+    }
+    if (confirmFirst && !confirm('<?= _('Unshare the selected shares over SMB? They will stop appearing on the network.') ?>')) {
+      return;
+    }
+    var queue = [];
+    rows.each(function() {
+      var $checkbox = $(this);
+      queue.push({
+        name: $checkbox.val(),
+        security: $checkbox.data('security') || 'public',
+        $checkbox: $checkbox,
+        $status: $checkbox.closest('tr').find('td.bst-status')
+      });
+    });
+    $('#bst-table input[type=checkbox]').prop('disabled', true);
+    $('#bst-btn-yes,#bst-btn-hidden,#bst-btn-no').prop('disabled', true);
+    bstProcess(queue, 0, exportValue);
+  };
+
+  function bstProcess(queue, i, exportValue) {
+    if (i >= queue.length) {
+      $('#bst-progress').text('<?= _('Done') ?>');
+      $('#bst-table input[type=checkbox]').prop('disabled', false);
+      $('#bst-btn-yes,#bst-btn-hidden,#bst-btn-no').prop('disabled', false);
+      $('#bst-check-all').prop('checked', false);
+      return;
+    }
+    var item = queue[i];
+    $('#bst-progress').text('<?= _('Applying') ?> ' + (i + 1) + '/' + queue.length + ': ' + item.name);
+    $.post('/update.htm', {
+      shareName: item.name,
+      shareExport: exportValue,
+      shareSecurity: item.security,
+      changeShareSecurity: 'Apply'
+    }).always(function() {
+      item.$checkbox.data('security', item.security);
+      item.$status.text(exportLabels[exportValue] || exportValue);
+      setTimeout(function() { bstProcess(queue, i + 1, exportValue); }, 500);
+    });
+  }
+})();
+</script>

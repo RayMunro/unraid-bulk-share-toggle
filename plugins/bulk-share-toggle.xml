@@ -1,0 +1,17 @@
+<Plugin>
+  <!-- Required fields -->
+  <Name>Bulk Share Toggle</Name>
+  <Overview>Adds a Shares -&gt; Bulk Share Toggle page with a checkbox next to every user share, plus buttons to bulk apply an SMB export change (Share / Share Hidden / Unshare) to all selected shares at once, instead of editing each share's Settings tab one at a time.</Overview>
+  <!-- NOTE: PluginURL must match exactly the URL of the pluginURL attribute in the .plg file -->
+  <PluginURL>https://raw.githubusercontent.com/RayMunro/unraid-bulk-share-toggle/main/bulk-share-toggle.plg</PluginURL>
+  <PluginAuthor>Ray Munro</PluginAuthor>
+
+  <!-- Optional entries -->
+  <!-- The .plg file already sets the support attribute, so <Support> here is ignored, left out to avoid duplication -->
+  <Project>https://github.com/RayMunro/unraid-bulk-share-toggle</Project>
+  <ReadMe>https://raw.githubusercontent.com/RayMunro/unraid-bulk-share-toggle/main/README.md</ReadMe>
+  <Category>Plugins: Tools:</Category>
+  <MinVer>6.9.0</MinVer>
+  <IconFA>check-square-o</IconFA>
+  <License>GPL-3.0-or-later</License>
+</Plugin>

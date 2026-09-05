@@ -1,0 +1,70 @@
+<?xml version='1.0' standalone='yes'?>
+<!DOCTYPE PLUGIN [
+<!ENTITY name          "bulk-share-toggle">
+<!ENTITY author        "Ray Munro">
+<!ENTITY version       "2026.09.05">
+<!ENTITY launch        "Shares/BulkShareToggle">
+<!ENTITY github        "RayMunro/unraid-bulk-share-toggle">
+<!ENTITY pluginURL     "https://raw.githubusercontent.com/&github;/main/&name;.plg">
+<!ENTITY packageFile   "&name;-&version;.txz">
+<!ENTITY packageURL    "https://github.com/&github;/releases/download/&version;/&packageFile;">
+<!ENTITY packageSHA256 "5729897498ed11608b9b6fbba0756254fe54c2bcf5826eab450715bd22ce307d">
+<!ENTITY pluginLOC     "/boot/config/plugins/&name;">
+<!ENTITY emhttpLOC     "/usr/local/emhttp/plugins/&name;">
+]>
+
+<PLUGIN  name="&name;"
+         author="&author;"
+         version="&version;"
+         pluginURL="&pluginURL;"
+         launch="&launch;"
+         icon="check-square-o"
+         support="https://github.com/&github;/issues"
+         project="https://github.com/&github;"
+         readme="https://github.com/&github;#readme"
+         min="6.9.0"
+>
+
+<CHANGES>
+### &version;
+- Switch to a hosted install: the package now downloads from a GitHub
+  Release instead of requiring a manual flash-drive copy first.
+
+### 2026.09.02
+- Initial release: checkbox-select shares, bulk apply SMB Export (Yes / Yes-Hidden / No)
+  via Unraid's own /update.htm share-security handler.
+</CHANGES>
+
+<FILE Run="/bin/bash">
+<INLINE>
+mkdir -p &pluginLOC;
+rm -f $(ls &pluginLOC;/&name;-*.txz 2>/dev/null | grep -v '&version;')
+</INLINE>
+</FILE>
+
+<FILE Name="&pluginLOC;/&packageFile;" Run="upgradepkg --install-new">
+<URL>&packageURL;</URL>
+<SHA256>&packageSHA256;</SHA256>
+</FILE>
+
+<FILE Run="/bin/bash">
+<INLINE>
+echo ""
+echo "----------------------------------------------------"
+echo " Bulk Share Toggle &version; installed."
+echo " Find it under Shares -> Bulk Share Toggle."
+echo "----------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+removepkg &name;-&version;
+rm -rf &emhttpLOC;
+rm -rf &pluginLOC;
+echo "Bulk Share Toggle removed."
+</INLINE>
+</FILE>
+
+</PLUGIN>
