@@ -4,7 +4,6 @@ Adds a **Shares → Bulk Share Toggle** tab with a checkbox next to every
 user share, plus three buttons:
 
 - **Share (SMB)** — set selected shares to Export = Yes
-- **Share Hidden** — set selected shares to Export = Yes (hidden)
 - **Unshare (SMB)** — set selected shares to Export = No
 
 Tick as many shares as you want and click one button to apply it to all
