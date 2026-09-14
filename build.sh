@@ -4,7 +4,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-VERSION="2026.09.14"
+VERSION="2026.09.14b"
 NAME="bulk-share-toggle"
 OUT="${NAME}-${VERSION}.txz"
 

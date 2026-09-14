@@ -37,6 +37,7 @@ $exportLabels = [
 .bst-header { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; }
 .bst-header img { width: 52px; height: 52px; flex: none; }
 .bst-header p { margin: 0; opacity: .75; }
+.bst-copyright { max-width: 720px; margin: 28px 0 10px; padding: 14px 18px; border: 2px solid #d65a00; border-radius: 8px; text-align: center; font-size: 18px; font-weight: 700; letter-spacing: .2px; }
 </style>
 
 <div class="bst-header">
@@ -81,6 +82,8 @@ $exportLabels = [
 <input type="button" id="bst-btn-no" value="<?= _('Unshare (SMB)') ?>" onclick="bstApply('-', true)">
 <span id="bst-progress"></span>
 </div>
+
+<div class="bst-copyright">Copyright &copy; Ray Munro 2026. All rights reserved.</div>
 
 <script>
 (function() {

@@ -2,13 +2,13 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name          "bulk-share-toggle">
 <!ENTITY author        "Ray Munro">
-<!ENTITY version       "2026.09.14">
+<!ENTITY version       "2026.09.14b">
 <!ENTITY launch        "Shares/BulkShareToggle">
 <!ENTITY github        "RayMunro/unraid-bulk-share-toggle">
 <!ENTITY pluginURL     "https://raw.githubusercontent.com/&github;/main/&name;.plg">
 <!ENTITY packageFile   "&name;-&version;.txz">
 <!ENTITY packageURL    "https://github.com/&github;/releases/download/&version;/&packageFile;">
-<!ENTITY packageSHA256 "c35b8b98cd6419a8392129848c1cf2f92f79b60273faec029dfcafce97bca86f">
+<!ENTITY packageSHA256 "ef61f9484558598cc98ab3fdbd52602d3f606a4fd192dfba327e46b625f1d128">
 <!ENTITY pluginLOC     "/boot/config/plugins/&name;">
 <!ENTITY emhttpLOC     "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -27,6 +27,9 @@
 
 <CHANGES>
 ### &version;
+- Add a copyright notice to the Settings page, matching the other HackerHog plugins.
+
+### 2026.09.14
 - Add a plugin icon, shown on the Settings page and in Community Applications.
 
 ### 2026.09.05
