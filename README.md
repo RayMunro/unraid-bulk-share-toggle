@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="icon.svg" width="160" alt="Bulk Share Toggle icon" />
+</p>
+
 # Bulk Share Toggle (Unraid plugin)
 
 Adds a **Shares → Bulk Share Toggle** tab with a checkbox next to every

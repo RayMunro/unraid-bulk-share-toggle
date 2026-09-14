@@ -34,7 +34,15 @@ $exportLabels = [
 <style>
 #bst-table td.bst-check, #bst-table th.bst-check { width: 24px; text-align: center; }
 #bst-progress { margin-left: 12px; font-style: italic; }
+.bst-header { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; }
+.bst-header img { width: 52px; height: 52px; flex: none; }
+.bst-header p { margin: 0; opacity: .75; }
 </style>
+
+<div class="bst-header">
+  <img src="/plugins/bulk-share-toggle/icon.svg" alt="">
+  <p><?= _('Tick shares, then flip their SMB export setting all at once.') ?></p>
+</div>
 
 <p><?= _('Select one or more shares below, then apply an SMB export change to all of them at once.') ?></p>
 

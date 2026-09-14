@@ -2,13 +2,13 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name          "bulk-share-toggle">
 <!ENTITY author        "Ray Munro">
-<!ENTITY version       "2026.09.05">
+<!ENTITY version       "2026.09.14">
 <!ENTITY launch        "Shares/BulkShareToggle">
 <!ENTITY github        "RayMunro/unraid-bulk-share-toggle">
 <!ENTITY pluginURL     "https://raw.githubusercontent.com/&github;/main/&name;.plg">
 <!ENTITY packageFile   "&name;-&version;.txz">
 <!ENTITY packageURL    "https://github.com/&github;/releases/download/&version;/&packageFile;">
-<!ENTITY packageSHA256 "5729897498ed11608b9b6fbba0756254fe54c2bcf5826eab450715bd22ce307d">
+<!ENTITY packageSHA256 "c35b8b98cd6419a8392129848c1cf2f92f79b60273faec029dfcafce97bca86f">
 <!ENTITY pluginLOC     "/boot/config/plugins/&name;">
 <!ENTITY emhttpLOC     "/usr/local/emhttp/plugins/&name;">
 ]>
@@ -27,6 +27,9 @@
 
 <CHANGES>
 ### &version;
+- Add a plugin icon, shown on the Settings page and in Community Applications.
+
+### 2026.09.05
 - Switch to a hosted install: the package now downloads from a GitHub
   Release instead of requiring a manual flash-drive copy first.
 

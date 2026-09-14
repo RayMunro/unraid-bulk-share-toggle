@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Bulk Share Toggle</title>
+  <desc id="desc">A folder with a row of checked boxes and a toggle switch, representing bulk selection and export toggling.</desc>
+  <defs>
+    <linearGradient id="folderGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3aa0e0"/>
+      <stop offset="1" stop-color="#1f6fb0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- folder body -->
+  <path d="M64 152c0-13.3 10.7-24 24-24h108l32 40h196c13.3 0 24 10.7 24 24v192c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V152z"
+        fill="url(#folderGrad)"/>
+  <path d="M64 152c0-13.3 10.7-24 24-24h108l32 40H88c-13.3 0-24 10.7-24 24v-40z" fill="#175a92"/>
+
+  <!-- row of checked boxes -->
+  <g>
+    <rect x="128" y="248" width="52" height="52" rx="10" fill="#0b2a44"/>
+    <path d="M141 274l10 10 20-22" stroke="#3ddc84" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <rect x="196" y="248" width="52" height="52" rx="10" fill="#0b2a44"/>
+    <path d="M209 274l10 10 20-22" stroke="#3ddc84" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+    <rect x="264" y="248" width="52" height="52" rx="10" fill="#0b2a44"/>
+    <path d="M277 274l10 10 20-22" stroke="#3ddc84" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+
+  <!-- toggle switch badge -->
+  <rect x="150" y="326" width="212" height="80" rx="40" fill="#0b2a44"/>
+  <circle cx="316" cy="366" r="32" fill="#f1892c"/>
+  <circle cx="196" cy="366" r="10" fill="#5b7fa6"/>
+
+  <!-- arrow sweep tying the checkboxes to the toggle -->
+  <path d="M180 314c10 6 18 4 24-4" stroke="#eaf6ff" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>
